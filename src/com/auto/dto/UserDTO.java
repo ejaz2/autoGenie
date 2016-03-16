@@ -55,4 +55,11 @@ public class UserDTO {
 	public void setuType(int uType) {
 		this.uType = uType;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [uid=" + uid + ", fName=" + fName + ", lName=" + lName
+				+ ", email=" + email + ", contact=" + contact + ", uType="
+				+ uType + "]";
+	}
 }
