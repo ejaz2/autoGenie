@@ -18,7 +18,6 @@ import com.auto.dto.PartsDetailDTO;
 import com.auto.dto.VendorDetailDTO;
 import com.auto.service.AdminServiceImpl;
 
-//@RolesAllowed("ADMIN")
 @Path("admin")
 public class AdminResource {
 
@@ -28,6 +27,7 @@ public class AdminResource {
 		adminServiceImpl = new AdminServiceImpl();
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@POST
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -35,6 +35,7 @@ public class AdminResource {
 		return adminServiceImpl.createDistributor(distributorDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@PUT
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -42,6 +43,7 @@ public class AdminResource {
 		adminServiceImpl.updateDistributor(distributorDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@DELETE
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -49,7 +51,6 @@ public class AdminResource {
 		adminServiceImpl.deleteDistributor(distributorDetailDTO);
 	}
 
-	@RolesAllowed("ADMIN")
 	@GET
 	@Path("ditributor/{did}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -58,7 +59,6 @@ public class AdminResource {
 		return adminServiceImpl.getDistributor(did);
 	}
 
-	@RolesAllowed("ADMIN")
 	@GET
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -67,6 +67,7 @@ public class AdminResource {
 		return adminServiceImpl.getDistributor(0);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@POST
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -74,6 +75,7 @@ public class AdminResource {
 		return adminServiceImpl.createParts(partsDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@PUT
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -81,6 +83,7 @@ public class AdminResource {
 		adminServiceImpl.updateParts(partsDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@DELETE
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -88,7 +91,6 @@ public class AdminResource {
 		adminServiceImpl.deleteParts(partsDetailDTO);
 	}
 
-	@RolesAllowed("USER")
 	@GET
 	@Path("parts/{pid}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -97,7 +99,6 @@ public class AdminResource {
 		return adminServiceImpl.getParts(pid);
 	}
 
-	@RolesAllowed("USER")
 	@GET
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -106,6 +107,7 @@ public class AdminResource {
 		return adminServiceImpl.getParts(0);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@POST
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -113,6 +115,7 @@ public class AdminResource {
 		return adminServiceImpl.createVendor(vendorDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@PUT
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -120,6 +123,7 @@ public class AdminResource {
 		adminServiceImpl.updateVendor(vendorDetailDTO);
 	}
 
+	@RolesAllowed({ "ADMIN" })
 	@DELETE
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -129,7 +133,6 @@ public class AdminResource {
 
 	@GET
 	@Path("vendor/{vid}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<VendorDetailDTO> getVendor(@PathParam("vid") long vid) {
 		return adminServiceImpl.getVendor(vid);
@@ -137,7 +140,6 @@ public class AdminResource {
 
 	@GET
 	@Path("vendor")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<VendorDetailDTO> getVendor() {
 		return adminServiceImpl.getVendor(0);

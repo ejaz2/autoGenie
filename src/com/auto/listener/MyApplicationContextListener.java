@@ -14,30 +14,30 @@ import org.apache.commons.logging.LogFactory;
 import com.mysql.jdbc.AbandonedConnectionCleanupThread;
 
 public class MyApplicationContextListener implements ServletContextListener {
-	private Log LOGGER = LogFactory.getLog(MyApplicationContextListener.class);
+	private static final Log LOGGER = LogFactory
+			.getLog(MyApplicationContextListener.class);
 
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent sce) {
+	}
+
+	public void contextDestroyed(ServletContextEvent sce) {
+		Enumeration<Driver> drivers = DriverManager.getDrivers();
+		Driver d = null;
+		while (drivers.hasMoreElements()) {
+			try {
+				d = drivers.nextElement();
+				DriverManager.deregisterDriver(d);
+				LOGGER.warn(String.format("Driver %s deregistered", d));
+			} catch (SQLException ex) {
+				LOGGER.warn(String.format("Error deregistering driver %s", d),
+						ex);
+			}
+		}
 		try {
 			AbandonedConnectionCleanupThread.shutdown();
-		} catch (InterruptedException e1) {
-			LOGGER.error("error in closing abandoned connections : ", e1);
-		}
-		try {
-			LOGGER.info("deRegitering the Driver..");
-			Enumeration<Driver> driver = DriverManager.getDrivers();
-			while (driver.hasMoreElements()) {
-				Driver dr = driver.nextElement();
-				DriverManager.deregisterDriver(dr);
-			}
-		} catch (SQLException e) {
-			LOGGER.error("error in unregistering jdbc driver", e);
+		} catch (InterruptedException e) {
+			LOGGER.warn("SEVERE problem in cleaning up: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-		LOGGER.info("Application context started successfully..");
-	}
-
 }

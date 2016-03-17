@@ -2,7 +2,6 @@ package com.auto.resource;
 
 import java.util.List;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,9 +17,7 @@ import com.auto.dto.OrderDTO;
 import com.auto.dto.UserDTO;
 import com.auto.service.UserServiceImpl;
 
-@PermitAll
 @Path("user")
-@RolesAllowed("user")
 public class UserResource {
 	UserServiceImpl serviceImpl;
 
@@ -42,6 +39,7 @@ public class UserResource {
 
 	@GET
 	@Path("{uid}")
+	@RolesAllowed({ "USER" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<UserDTO> getUser(@PathParam("uid") long uid) {
@@ -55,10 +53,11 @@ public class UserResource {
 		serviceImpl.deleteUser(uid);
 	}
 
+	@RolesAllowed({ "USER" })
 	@POST
 	@Path("{uid}/order")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void placeOrder(OrderDTO orderDTO) {
+	public void placeOrder(@PathParam("uid") long uid, OrderDTO orderDTO) {
 		serviceImpl.placeOrder(orderDTO);
 	}
 }
