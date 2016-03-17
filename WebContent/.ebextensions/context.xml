@@ -57,9 +57,9 @@
               minEvictableIdleTimeMillis="30000" 
               jmxEnabled="true"
               jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
-              username="root" 
-              password="root" 
+              username="ejaz1" 
+              password="ejaz123" 
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/autogenie"/>
+              url="jdbc:mysql://auto.cgvyggyminyw.us-west-2.rds.amazonaws.com:3306/autogenie"/>
     
 </Context>

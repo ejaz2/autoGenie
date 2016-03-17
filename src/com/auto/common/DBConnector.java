@@ -14,9 +14,9 @@ import org.apache.commons.logging.LogFactory;
 
 public class DBConnector {
 	private static Log LOGGER = LogFactory.getLog(DBConnector.class);
-	private static String userName = "root";
-	private static String pass = "root";
-	private static String connection_string = "jdbc:mysql://localhost:3306/autogenie";
+	private static String userName = "ejaz1";
+	private static String pass = "ejaz123";
+	private static String connection_string = "jdbc:mysql://auto.cgvyggyminyw.us-west-2.rds.amazonaws.com:3306/autogenie";
 
 	private DBConnector() {
 
