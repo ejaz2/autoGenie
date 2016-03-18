@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.auto.common.DBConnector;
 import com.auto.dto.VendorDetailDTO;
+import com.auto.exception.DataAccessSqlException;
 
 public class VendorDAO {
 
@@ -25,7 +26,8 @@ public class VendorDAO {
 	private static final String VENDER_WHERE = " where gid = ?";
 	private static final String DELETE_VENDER = "delete from garage where gid = ?";
 
-	public int createVendor(VendorDetailDTO vendorDetailDTO) {
+	public int createVendor(VendorDetailDTO vendorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -55,6 +57,7 @@ public class VendorDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in create vendor", e);
+			throw new DataAccessSqlException("error in create vendor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
@@ -62,7 +65,8 @@ public class VendorDAO {
 		return id;
 	}
 
-	public void updateVendor(VendorDetailDTO vendorDetailDTO) {
+	public void updateVendor(VendorDetailDTO vendorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -86,13 +90,15 @@ public class VendorDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in update vendor", e);
+			throw new DataAccessSqlException("error in update vendor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
 		}
 	}
 
-	public List<VendorDetailDTO> getVendorDetails(long pid) {
+	public List<VendorDetailDTO> getVendorDetails(long pid)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -127,6 +133,7 @@ public class VendorDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in get vendor details", e);
+			throw new DataAccessSqlException("error in get vendor details");
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.close(pstmt);
@@ -135,7 +142,8 @@ public class VendorDAO {
 		return vendorDetailDTOs;
 	}
 
-	public void deleteVendor(VendorDetailDTO vendorDetailDTO) {
+	public void deleteVendor(VendorDetailDTO vendorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -145,6 +153,7 @@ public class VendorDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in delete vendor", e);
+			throw new DataAccessSqlException("error in delete vendor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);

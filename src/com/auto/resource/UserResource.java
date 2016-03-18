@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.auto.dto.OrderDTO;
 import com.auto.dto.UserDTO;
+import com.auto.exception.MyApplicationException;
 import com.auto.service.UserServiceImpl;
 
 @Path("user")
@@ -27,13 +28,13 @@ public class UserResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public int createUser(UserDTO userDTO) {
+	public int createUser(UserDTO userDTO) throws MyApplicationException {
 		return serviceImpl.createUser(userDTO);
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateUser(UserDTO userDTO) {
+	public void updateUser(UserDTO userDTO) throws MyApplicationException {
 		serviceImpl.updateUser(userDTO);
 	}
 
@@ -42,14 +43,16 @@ public class UserResource {
 	@RolesAllowed({ "USER" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UserDTO> getUser(@PathParam("uid") long uid) {
+	public List<UserDTO> getUser(@PathParam("uid") long uid)
+			throws MyApplicationException {
 		return serviceImpl.getUser(uid);
 	}
 
 	@DELETE
 	@Path("{uid}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void deleteUser(@PathParam("uid") long uid) {
+	public void deleteUser(@PathParam("uid") long uid)
+			throws MyApplicationException {
 		serviceImpl.deleteUser(uid);
 	}
 
@@ -57,7 +60,8 @@ public class UserResource {
 	@POST
 	@Path("{uid}/order")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void placeOrder(@PathParam("uid") long uid, OrderDTO orderDTO) {
+	public void placeOrder(@PathParam("uid") long uid, OrderDTO orderDTO)
+			throws MyApplicationException {
 		serviceImpl.placeOrder(orderDTO);
 	}
 }

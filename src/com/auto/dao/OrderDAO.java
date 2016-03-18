@@ -8,12 +8,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.auto.common.DBConnector;
 import com.auto.dto.OrderDTO;
+import com.auto.exception.DataAccessSqlException;
 
 public class OrderDAO {
 	private static Log LOGGER = LogFactory.getLog(OrderDAO.class);
 	private static final String CREATE_ORDER = "insert into orders (gid,pid,description,order_status,invoice,pdid,uid) values (?,?,?,?,?,?,?)";
 
-	public void placeOrder(OrderDTO orderDTO) {
+	public void placeOrder(OrderDTO orderDTO) throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -29,6 +30,7 @@ public class OrderDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in create order", e);
+			throw new DataAccessSqlException("error in create order");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);

@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.auto.common.DBConnector;
 import com.auto.dto.UserDTO;
+import com.auto.exception.DataAccessSqlException;
 
 public class UserDAO {
 	private static Log LOGGER = LogFactory.getLog(UserDAO.class);
@@ -20,7 +21,7 @@ public class UserDAO {
 	private static final String USER_WHERE = " where uid = ?";
 	private static final String DELETE_USER = "delete from user where uid = ?";
 
-	public int createUser(UserDTO userDto) {
+	public int createUser(UserDTO userDto) throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -41,6 +42,7 @@ public class UserDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in create user", e);
+			throw new DataAccessSqlException("error in create user");
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.close(pstmt);
@@ -49,7 +51,7 @@ public class UserDAO {
 		return id;
 	}
 
-	public void updateUser(UserDTO userDto) {
+	public void updateUser(UserDTO userDto) throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -64,13 +66,14 @@ public class UserDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in update user", e);
+			throw new DataAccessSqlException("error in update user");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
 		}
 	}
 
-	public List<UserDTO> getUserDetails(long uid) {
+	public List<UserDTO> getUserDetails(long uid) throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -96,6 +99,7 @@ public class UserDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in get user details", e);
+			throw new DataAccessSqlException("error in get user details");
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.close(pstmt);
@@ -104,7 +108,7 @@ public class UserDAO {
 		return usersList;
 	}
 
-	public void deleteUser(long uid) {
+	public void deleteUser(long uid) throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -114,6 +118,7 @@ public class UserDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in delete user", e);
+			throw new DataAccessSqlException("error in delete user");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);

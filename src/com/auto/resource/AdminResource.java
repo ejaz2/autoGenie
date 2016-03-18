@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import com.auto.dto.DistributorDetailDTO;
 import com.auto.dto.PartsDetailDTO;
 import com.auto.dto.VendorDetailDTO;
+import com.auto.exception.MyApplicationException;
 import com.auto.service.AdminServiceImpl;
 
 @Path("admin")
@@ -31,7 +32,8 @@ public class AdminResource {
 	@POST
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public int createDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public int createDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws MyApplicationException {
 		return adminServiceImpl.createDistributor(distributorDetailDTO);
 	}
 
@@ -39,7 +41,8 @@ public class AdminResource {
 	@PUT
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public void updateDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.updateDistributor(distributorDetailDTO);
 	}
 
@@ -47,7 +50,8 @@ public class AdminResource {
 	@DELETE
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void deleteDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public void deleteDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.deleteDistributor(distributorDetailDTO);
 	}
 
@@ -55,7 +59,8 @@ public class AdminResource {
 	@Path("ditributor/{did}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<DistributorDetailDTO> getDistributor(@PathParam("did") long did) {
+	public List<DistributorDetailDTO> getDistributor(@PathParam("did") long did)
+			throws Exception {
 		return adminServiceImpl.getDistributor(did);
 	}
 
@@ -63,7 +68,7 @@ public class AdminResource {
 	@Path("ditributor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<DistributorDetailDTO> getDistributors() {
+	public List<DistributorDetailDTO> getDistributors() throws Exception {
 		return adminServiceImpl.getDistributor(0);
 	}
 
@@ -71,7 +76,8 @@ public class AdminResource {
 	@POST
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public int createParts(PartsDetailDTO partsDetailDTO) {
+	public int createParts(PartsDetailDTO partsDetailDTO)
+			throws MyApplicationException {
 		return adminServiceImpl.createParts(partsDetailDTO);
 	}
 
@@ -79,7 +85,8 @@ public class AdminResource {
 	@PUT
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateParts(PartsDetailDTO partsDetailDTO) {
+	public void updateParts(PartsDetailDTO partsDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.updateParts(partsDetailDTO);
 	}
 
@@ -87,7 +94,8 @@ public class AdminResource {
 	@DELETE
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void deleteParts(PartsDetailDTO partsDetailDTO) {
+	public void deleteParts(PartsDetailDTO partsDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.deleteParts(partsDetailDTO);
 	}
 
@@ -95,7 +103,8 @@ public class AdminResource {
 	@Path("parts/{pid}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<PartsDetailDTO> getParts(@PathParam("pid") long pid) {
+	public List<PartsDetailDTO> getParts(@PathParam("pid") long pid)
+			throws MyApplicationException {
 		return adminServiceImpl.getParts(pid);
 	}
 
@@ -103,7 +112,7 @@ public class AdminResource {
 	@Path("parts")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<PartsDetailDTO> getParts() {
+	public List<PartsDetailDTO> getParts() throws MyApplicationException {
 		return adminServiceImpl.getParts(0);
 	}
 
@@ -111,7 +120,8 @@ public class AdminResource {
 	@POST
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public int createVendor(VendorDetailDTO vendorDetailDTO) {
+	public int createVendor(VendorDetailDTO vendorDetailDTO)
+			throws MyApplicationException {
 		return adminServiceImpl.createVendor(vendorDetailDTO);
 	}
 
@@ -119,7 +129,8 @@ public class AdminResource {
 	@PUT
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateVendor(VendorDetailDTO vendorDetailDTO) {
+	public void updateVendor(VendorDetailDTO vendorDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.updateVendor(vendorDetailDTO);
 	}
 
@@ -127,21 +138,23 @@ public class AdminResource {
 	@DELETE
 	@Path("vendor")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void deleteVendor(VendorDetailDTO vendorDetailDTO) {
+	public void deleteVendor(VendorDetailDTO vendorDetailDTO)
+			throws MyApplicationException {
 		adminServiceImpl.deleteVendor(vendorDetailDTO);
 	}
 
 	@GET
 	@Path("vendor/{vid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<VendorDetailDTO> getVendor(@PathParam("vid") long vid) {
+	public List<VendorDetailDTO> getVendor(@PathParam("vid") long vid)
+			throws MyApplicationException {
 		return adminServiceImpl.getVendor(vid);
 	}
 
 	@GET
 	@Path("vendor")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<VendorDetailDTO> getVendor() {
+	public List<VendorDetailDTO> getVendor() throws MyApplicationException {
 		return adminServiceImpl.getVendor(0);
 	}
 }

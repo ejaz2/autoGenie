@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.auto.common.DBConnector;
 import com.auto.dto.DistributorDetailDTO;
+import com.auto.exception.DataAccessSqlException;
 
 public class DistributorDAO {
 
@@ -25,7 +26,8 @@ public class DistributorDAO {
 	private static final String DISTRIBUTOR_WHERE = " where pdid = ?";
 	private static final String DELETE_DISTRIBUTOR = "delete from distributor where pdid = ?";
 
-	public int createDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public int createDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		int id = 0;
@@ -55,6 +57,7 @@ public class DistributorDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in create distributor", e);
+			throw new DataAccessSqlException("error in create distributor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
@@ -62,7 +65,8 @@ public class DistributorDAO {
 		return id;
 	}
 
-	public void updateDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public void updateDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -86,13 +90,15 @@ public class DistributorDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in update distributor", e);
+			throw new DataAccessSqlException("error in update distributor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
 		}
 	}
 
-	public List<DistributorDetailDTO> getDistributorDetails(long did) {
+	public List<DistributorDetailDTO> getDistributorDetails(long did)
+			throws Exception {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -128,6 +134,8 @@ public class DistributorDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in get distributor details", e);
+			throw new Exception(e);
+			//throw new DataAccessSqlException("error in get distributor details");
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.close(pstmt);
@@ -136,7 +144,8 @@ public class DistributorDAO {
 		return distributorDetailDTOs;
 	}
 
-	public void deleteDistributor(DistributorDetailDTO distributorDetailDTO) {
+	public void deleteDistributor(DistributorDetailDTO distributorDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -146,6 +155,7 @@ public class DistributorDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in delete distributor", e);
+			throw new DataAccessSqlException("error in delete distributor");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);

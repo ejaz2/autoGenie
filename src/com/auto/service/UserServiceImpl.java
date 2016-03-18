@@ -6,6 +6,7 @@ import com.auto.dao.OrderDAO;
 import com.auto.dao.UserDAO;
 import com.auto.dto.OrderDTO;
 import com.auto.dto.UserDTO;
+import com.auto.exception.MyApplicationException;
 
 public class UserServiceImpl {
 	UserDAO userDAO;
@@ -16,23 +17,23 @@ public class UserServiceImpl {
 		orderDAO = new OrderDAO();
 	}
 
-	public int createUser(UserDTO userDTO) {
+	public int createUser(UserDTO userDTO) throws MyApplicationException {
 		return userDAO.createUser(userDTO);
 	}
 
-	public void updateUser(UserDTO userDTO) {
+	public void updateUser(UserDTO userDTO) throws MyApplicationException {
 		userDAO.updateUser(userDTO);
 	}
 
-	public List<UserDTO> getUser(long uid) {
+	public List<UserDTO> getUser(long uid) throws MyApplicationException {
 		return userDAO.getUserDetails(uid);
 	}
 
-	public void deleteUser(long uid) {
+	public void deleteUser(long uid) throws MyApplicationException {
 		userDAO.deleteUser(uid);
 	}
 
-	public void placeOrder(OrderDTO orderDTO) {
+	public void placeOrder(OrderDTO orderDTO) throws MyApplicationException {
 		orderDAO.placeOrder(orderDTO);
 	}
 

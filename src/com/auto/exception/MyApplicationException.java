@@ -1,13 +1,13 @@
 package com.auto.exception;
 
-public class DataAccessSqlException extends MyApplicationException {
+public class MyApplicationException extends Exception {
 
 	/**
 	 * @author Ejaz
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public DataAccessSqlException(String arg) {
+	public MyApplicationException(String arg) {
 		super(arg);
 	}
 }

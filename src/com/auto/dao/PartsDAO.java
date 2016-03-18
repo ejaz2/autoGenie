@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.auto.common.DBConnector;
 import com.auto.dto.PartsDetailDTO;
+import com.auto.exception.DataAccessSqlException;
 
 public class PartsDAO {
 
@@ -21,7 +22,8 @@ public class PartsDAO {
 	private static final String PARTS_WHERE = " where pid = ?";
 	private static final String DELETE_PARTS = "delete from parts where pid = ?";
 
-	public int createParts(PartsDetailDTO partsDetailDTO) {
+	public int createParts(PartsDetailDTO partsDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		int id = 0;
@@ -42,6 +44,7 @@ public class PartsDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in create parts", e);
+			throw new DataAccessSqlException("error in create parts");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
@@ -49,7 +52,8 @@ public class PartsDAO {
 		return id;
 	}
 
-	public void updateParts(PartsDetailDTO partsDetailDTO) {
+	public void updateParts(PartsDetailDTO partsDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -64,13 +68,15 @@ public class PartsDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in update parts", e);
+			throw new DataAccessSqlException("error in update parts");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
 		}
 	}
 
-	public List<PartsDetailDTO> getPartsDetails(long pid) {
+	public List<PartsDetailDTO> getPartsDetails(long pid)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -96,6 +102,7 @@ public class PartsDAO {
 			}
 		} catch (Exception e) {
 			LOGGER.error("error in get parts details", e);
+			throw new DataAccessSqlException("error in get parts details");
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.close(pstmt);
@@ -104,7 +111,8 @@ public class PartsDAO {
 		return partsDetailDTOs;
 	}
 
-	public void deleteParts(PartsDetailDTO partsDetailDTO) {
+	public void deleteParts(PartsDetailDTO partsDetailDTO)
+			throws DataAccessSqlException {
 		Connection conn = DBConnector.getPooledConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -114,6 +122,7 @@ public class PartsDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.error("error in delete parts", e);
+			throw new DataAccessSqlException("error in delete parts");
 		} finally {
 			DBConnector.close(pstmt);
 			DBConnector.close(conn);
