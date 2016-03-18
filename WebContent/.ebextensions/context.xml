@@ -36,6 +36,6 @@
 		minEvictableIdleTimeMillis="30000" jmxEnabled="true"
 		jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
 		username="ejaz1" password="ejaz123" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://autog.cgvyggyminyw.us-west-2.rds.amazonaws.com:3306/autogenie" />
+		url="jdbc:mysql://autog.cgvyggyminyw.us-west-2.rds.amazonaws.com:3306/autogenie"/>
 
 </Context>
